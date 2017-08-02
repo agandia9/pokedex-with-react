@@ -1,50 +1,40 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PokeCard from '../PokeCard'
 
-class PokeList extends Component {
+class PokeList extends Component{
 
-    state = {
-        pokemons: [],
-        loading: true
-    }
+	state = {
+		pokemons: []
+	}
 
-    componentWillMount() {
-        fetch('http://pokeapi.co/api/v2/pokemon?limit=151')
+	handleClick = () => {
+		fetch('http://pokeapi.co/api/v2/pokemon?limit=151')
 		.then(res => res.json())
 		.then(res => {
-            console.log(res)
-            return res
-        })
-		.then(res => {
-            this.setState({
-				pokemons: res.results,
-				loading: false
-			})
-        })
-    }
+			this.setState({pokemons: res.results})
+		})
+	}
 
-    render() {
-        const {pokemons} = this.state
-        return (
+	render(){
+		const { pokemons } = this.state
+		return(
 			<div>
-        {
-            this.state.loading && <p>Loading</p>
-        }
-        {
-            !this.state.loading && Object.keys(pokemons).map(num => {
-                console.log(num, pokemons[num]['name'])
-                return (
-					<PokeCard
-						key={num}
-						pokemonId={num * 1 + 1}
-						name={pokemons[num]['name']}
-					/>
-				)
-            })
-        }
-		</div>
-	)
-    }
+				<button className='btn btn-danger' onClick={this.handleClick}>
+					Catch me bitch!
+				</button>
+				<div>
+					{
+						pokemons.map((pokemon, index) => (
+						<PokeCard
+							name={pokemon['name']}
+							pokemonId={index+1}
+							/>
+						))
+					}
+				</div>
+			</div>
+		)
+	}
 }
 
 export default PokeList
