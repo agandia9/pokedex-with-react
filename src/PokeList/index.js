@@ -9,17 +9,19 @@ class PokeList extends Component {
     }
 
     componentWillMount() {
-        fetch('http://pokeapi.co/api/v2/pokemon?limit=151')
+        fetch('http://pokeapi.salestock.net/api/v2/pokedex/national',
+            )
 		.then(res => res.json())
 		.then(res => {
-            console.log(res)
-            return res
+            console.log(res.pokemon_entries)
+            return res.pokemon_entries
         })
 		.then(res => {
             this.setState({
-				pokemons: res.results,
+				pokemons: res,
 				loading: false
 			})
+            console.log(this.state)
         })
     }
 
@@ -37,7 +39,7 @@ class PokeList extends Component {
 					<PokeCard
 						key={num}
 						pokemonId={num * 1 + 1}
-						name={`${pokemons[num]['name'][0].toUpperCase()}${pokemons[num]['name'].substr(1)}`}
+						name={`${pokemons[num]['pokemon_species']['name'].toUpperCase()}`}
 					/>
 				)
             })
