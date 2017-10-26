@@ -5,15 +5,16 @@ class PokeList extends Component {
 
     state = {
         pokemons: [],
-        loading: true
+        loading: true,
+        selectedPokemon: ''
     }
 
     componentWillMount() {
-        fetch('http://pokeapi.salestock.net/api/v2/pokedex/national',
+        fetch('http://pokeapi.salestock.net/api/v2/pokedex/6',
             )
 		.then(res => res.json())
 		.then(res => {
-            console.log(res.pokemon_entries)
+            console.log(res)
             return res.pokemon_entries
         })
 		.then(res => {
@@ -23,6 +24,23 @@ class PokeList extends Component {
 			})
             console.log(this.state)
         })
+    }
+    
+    getInfo = (e) => {
+        const url = e.target.getAttribute('data')
+        fetch(url)
+            .then(res=>res.json())
+            .then(res=>{
+                this.setState({
+                    selectedPokemon: {
+                        name: res.name,
+                        id: res.id,
+                        evo: res.evolution_chain
+                    }
+                })
+                console.log(this.state.selectedPokemon)
+        })
+        // fetch(url).then((res)=>console.log(res))
     }
 
     render() {
@@ -34,11 +52,13 @@ class PokeList extends Component {
         }
         {
             !this.state.loading && Object.keys(pokemons).map(num => {
-                console.log(num, pokemons[num]['name'])
+                // console.log(num, pokemons[num]['name'])
                 return (
 					<PokeCard
-						key={num}
-						pokemonId={num * 1 + 1}
+						key = {num}
+						pokemonId={pokemons[num]['pokemon_species']['name']}
+                        getInfo = {this.getInfo}
+                        moreInfo={pokemons[num]['pokemon_species']['url']}
 						name={`${pokemons[num]['pokemon_species']['name'].toUpperCase()}`}
 					/>
 				)

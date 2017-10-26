@@ -1,11 +1,12 @@
 import React from 'react'
+import './PokeCard.css'
 
 const PokeCard = (props) => (
-	  <div className="col-sm-4 col-md-3">
+	  <div className="col-sm-4 col-md-3 img-fixed">
 	    <div className="thumbnail">
-	      <img src={ `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokemonId}.png` } />
+	      <img src={ `http://www.pokestadium.com/sprites/xy/${props.pokemonId}.gif` } />
 	      <div className="caption">
-	        <h3 className="text-center">{props.name}</h3>
+	        <h3 className="text-center"><a data={props.moreInfo} onClick={props.getInfo}> {props.name} </a> </h3>
 	      </div>
 	    </div>
 	</div>

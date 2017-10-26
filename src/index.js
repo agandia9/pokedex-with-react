@@ -5,7 +5,7 @@ import PokeList from './PokeList'
 const App = () => (
 	<div className="container">
 		<h1> Pokedex! </h1>
-		<PokeList />
+		<PokeList className="row"/>
 	</div>
 )
 
