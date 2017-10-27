@@ -1,16 +1,19 @@
 import React, {Component} from 'react'
 import PokeCard from '../PokeCard'
+import './PokeList.css'
 
 class PokeList extends Component {
 
     state = {
         pokemons: [],
+        filteredPokemon:'',
+        pokemonsFiltered: [],
         loading: true,
         selectedPokemon: ''
     }
 
     componentWillMount() {
-        fetch('http://pokeapi.salestock.net/api/v2/pokedex/6',
+        fetch('http://pokeapi.salestock.net/api/v2/pokedex/2',
             )
 		.then(res => res.json())
 		.then(res => {
@@ -25,7 +28,15 @@ class PokeList extends Component {
             console.log(this.state)
         })
     }
-    
+     filteredPokemon = (e)=>{
+            let filteredPokemon = e.target.value
+            this.setState({
+                filteredPokemon:filteredPokemon
+            })
+            this.setState({
+                pokemonsFiltered:this.state.pokemons.filter(e => e['pokemon_species']['name'].includes(filteredPokemon))
+            })
+        }
     getInfo = (e) => {
         const url = e.target.getAttribute('data')
         fetch(url)
@@ -44,29 +55,35 @@ class PokeList extends Component {
     }
 
     render() {
-        const {pokemons} = this.state
+        const { pokemons } = this.state
+        const {pokemonsFiltered } = this.state;
+
+
         return (
-			<div>
-        {
-            this.state.loading && <p>Loading</p>
-        }
-        {
-            !this.state.loading && Object.keys(pokemons).map(num => {
-                // console.log(num, pokemons[num]['name'])
-                return (
-					<PokeCard
-						key = {num}
-						pokemonId={pokemons[num]['pokemon_species']['name']}
-                        getInfo = {this.getInfo}
-                        moreInfo={pokemons[num]['pokemon_species']['url']}
-						name={`${pokemons[num]['pokemon_species']['name'].toUpperCase()}`}
-					/>
-				)
-            })
-        }
-		</div>
-	)
-    }
+            <div>
+            <input type="text" onChange={this.filteredPokemon}/>
+    			<div>
+                {
+                    this.state.loading && <p>Loading</p>
+                }
+                {
+                    !this.state.loading && Object.keys(pokemonsFiltered).map(num => {
+                        // console.log(num, pokemons[num]['name'])
+                        return (
+        					<PokeCard
+        						key = {num}
+        						pokemonId={pokemons[num]['pokemon_species']['name']}
+                                getInfo = {this.getInfo}
+                                moreInfo={pokemons[num]['pokemon_species']['url']}
+        						name={`${pokemons[num]['pokemon_species']['name'].toUpperCase()}`}
+        					/>
+        				)
+                    })
+                }
+        		</div>
+            </div>
+        	)
+            }
 }
 
 export default PokeList

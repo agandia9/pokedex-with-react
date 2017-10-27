@@ -1,0 +1,9 @@
+.img-fixed {
+    height: 200px !important;
+    width: 250px !important;
+}
+
+.img-fixed h3 {
+    position: absolute;
+    bottom: 20px;
+}
