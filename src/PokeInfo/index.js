@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import { Modal } from 'react-bootstrap'
 class PokeInfo extends Component {
+	constructor(props) {
+    super(props);
+    
+}
+	close() {
+			    this.props.open = false;
+			  }
 
 	render(){
-		let close = () => {
-			this.setState({
-				this.props.open = false
-			})
-		}
 		return(
 						<Modal
 							  show={this.props.open}
-							  onHide={close}
+							  onHide={this.close}
 							  container={this.props.info.description}
 							  aria-labelledby="contained-modal-title"
 							>
@@ -22,7 +24,7 @@ class PokeInfo extends Component {
 								<p>{this.props.info.type}</p>
 							  </Modal.Body>
 							  <Modal.Footer>
-								<button onClick={close}>Close</button>
+								<button onClick={this.close}>Close</button>
 							  </Modal.Footer>
 						</Modal>
 				)
