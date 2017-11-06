@@ -12,7 +12,7 @@ class PokeList extends Component {
 	}
 
 	componentWillMount() {
-		fetch('https://pokeapi.co/api/v2/pokemon/	',
+		fetch('https://pokeapi.co/api/v2/pokemon/',
 			)
 		.then(res => res.json())
 		.then(res => {
@@ -22,13 +22,16 @@ class PokeList extends Component {
 		.then(res => {
 			this.setState({
 				pokemons: res.results,
+				next: res.next,
 				loading: false
 			})
 		})
 	}
+
 	filteredPokemon = (e)=>{ 
-		this.setState({ filteredName: e.target.value})
+		this.setState({ filteredName: e.target.value.toLowerCase()})
 	}
+
 	filterNames = (pokemonId) => {
 		const { pokemons, filteredName } = this.state
 		if (filteredName === '') {
@@ -58,15 +61,30 @@ class PokeList extends Component {
 					}
 				})
 				console.log(this.state.selectedPokemon)
+
 		})
 		// fetch(url).then((res)=>console.log(res))
+	}
+
+	getMorePokemons = () => {
+		fetch(this.state.next).then(res => res.json())
+		.then(res => {
+			console.log(res)
+			return res
+		}).then(res => {
+			this.setState((prevState)=>{
+				console.log(prevState)
+				return { pokemons: prevState.pokemons.concat(res.results),next:res.next }
+			})
+		})
 	}
 
 	render() {
 		const { pokemons, filteredPokemon } = this.state
 		return (
 			<div>
-			<input type="text" onChange={this.filteredPokemon} />
+			<h2>Displaying {this.state.pokemons.length} Pokemons</h2>
+			<input className="form-control" type="text" onChange={this.filteredPokemon} />
 				<div>
 				{
 					this.state.loading && <p>Loading</p>
@@ -76,15 +94,16 @@ class PokeList extends Component {
 						return (
 							<PokeCard
 								key = {num}
-								pokemonId={pokemons['name']}
+								num = {parseInt(num)}
+								pokemonId={pokemons[num]['name']}
 								getInfo = {this.getInfo}
 								moreInfo={pokemons[num]['url']}
-								name={`${pokemons[num]['name'].toLowerCase()}`}
+								name={`${pokemons[num]['name'].substr(0,1).toUpperCase()}${pokemons[num]['name'].substr(1).toLowerCase()}`}
 							/>
 						)
 					})
 				}
-				<button>More Pokemons</button>
+				<button className="btn btn-block btn-success"onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
 				</div>
 			</div>
 			)
