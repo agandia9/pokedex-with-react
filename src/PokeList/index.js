@@ -6,8 +6,7 @@ class PokeList extends Component {
 
 	state = {
 		pokemons: [],
-		filteredPokemon:'',
-		pokemonsFiltered: [],
+		filteredName: '',
 		loading: true,
 		selectedPokemon: ''
 	}
@@ -27,16 +26,20 @@ class PokeList extends Component {
 			})
 		})
 	}
-	 filteredPokemon = (e)=>{
-	 	console.log(e.target.value)
-			// let filteredPokemon = e.target.value
-			// this.setState({
-			// 	filteredPokemon:filteredPokemon
-			// })
-			// this.setState({
-			// 	pokemonsFiltered:this.state.pokemons.filter(e => e['pokemon_species']['name'].includes(filteredPokemon))
-			// })
+	filteredPokemon = (e)=>{ 
+		this.setState({ filteredName: e.target.value})
+	}
+	filterNames = (pokemonId) => {
+		const { pokemons, filteredName } = this.state
+		if (filteredName === '') {
+			return true
+		} else if (pokemons[pokemonId].name.includes(filteredName)) {
+			return true
+		} else {
+			return false
 		}
+	}
+
 	getInfo = (e) => {
 		const url = e.target.getAttribute('data')
 		console.log(url)
@@ -60,19 +63,16 @@ class PokeList extends Component {
 	}
 
 	render() {
-		const { pokemons } = this.state
-		const { pokemonsFiltered } = this.state;
-
-
+		const { pokemons, filteredPokemon } = this.state
 		return (
 			<div>
-			<input type="text" onChange={this.filteredPokemon}/>
+			<input type="text" onChange={this.filteredPokemon} />
 				<div>
 				{
 					this.state.loading && <p>Loading</p>
 				}
 				{
-					!this.state.loading && Object.keys(pokemons).map(num => {
+					!this.state.loading && Object.keys(pokemons).filter(this.filterNames).map(num => {
 						return (
 							<PokeCard
 								key = {num}
