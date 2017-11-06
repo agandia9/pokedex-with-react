@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PokeCard from '../PokeCard'
 import './PokeList.css'
+import PokeInfo from '../PokeInfo'
 
 class PokeList extends Component {
 
@@ -8,7 +9,8 @@ class PokeList extends Component {
 		pokemons: [],
 		filteredName: '',
 		loading: true,
-		selectedPokemon: ''
+		selectedPokemon: '',
+		open:false
 	}
 
 	componentWillMount() {
@@ -58,7 +60,8 @@ class PokeList extends Component {
 						type: res.types.map((n)=>{
 							return n.type.name
 						})
-					}
+					},
+					open: true
 				})
 				console.log(this.state.selectedPokemon)
 
@@ -83,28 +86,32 @@ class PokeList extends Component {
 		const { pokemons, filteredPokemon } = this.state
 		return (
 			<div>
-			<h2>Displaying {this.state.pokemons.length} Pokemons</h2>
-			<input className="form-control" type="text" onChange={this.filteredPokemon} />
-				<div>
-				{
-					this.state.loading && <p>Loading</p>
-				}
-				{
-					!this.state.loading && Object.keys(pokemons).filter(this.filterNames).map(num => {
-						return (
-							<PokeCard
-								key = {num}
-								num = {parseInt(num)}
-								pokemonId={pokemons[num]['name']}
-								getInfo = {this.getInfo}
-								moreInfo={pokemons[num]['url']}
-								name={`${pokemons[num]['name'].substr(0,1).toUpperCase()}${pokemons[num]['name'].substr(1).toLowerCase()}`}
-							/>
-						)
-					})
-				}
-				<button className="btn btn-block btn-success"onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
-				</div>
+				<h2>Displaying {this.state.pokemons.length} Pokemons</h2>
+				<input className="form-control" type="text" onChange={this.filteredPokemon} />
+					<div>
+					{
+						this.state.loading && <p>Loading</p>
+					}
+					{
+						!this.state.loading && Object.keys(pokemons).filter(this.filterNames).map(num => {
+							return (
+								<PokeCard
+									key = {num}
+									num = {parseInt(num)}
+									pokemonId={pokemons[num]['name'].replace('-','')}
+									getInfo = {this.getInfo}
+									moreInfo={pokemons[num]['url']}
+									name={`${pokemons[num]['name'].substr(0,1).toUpperCase()}${pokemons[num]['name'].substr(1).toLowerCase()}`}
+								/>
+							)
+						})
+					}
+					<button className="btn btn-block btn-success"onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
+					</div>
+					<PokeInfo 
+						open={this.state.open}
+						info={this.state.selectedPokemon}
+					/>
 			</div>
 			)
 			}
