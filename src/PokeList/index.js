@@ -45,6 +45,13 @@ class PokeList extends Component {
 		}
 	}
 
+		handleClose = () =>{
+			    this.setState({
+			    	open: false
+			    })
+			  }
+
+
 	getInfo = (e) => {
 		const url = e.target.getAttribute('data')
 		console.log(url)
@@ -59,6 +66,12 @@ class PokeList extends Component {
 						id: res.id,
 						type: res.types.map((n)=>{
 							return n.type.name
+						}),
+						moves: res.moves.map((m)=>{
+							return m.move.name
+						}),
+						abilities:res.abilities.map((a)=>{
+							return a.ability.name
 						})
 					},
 					open: true
@@ -108,7 +121,8 @@ class PokeList extends Component {
 					}
 					<button className="btn btn-block btn-success"onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
 					</div>
-					<PokeInfo 
+					<PokeInfo
+						handleClose={this.handleClose}
 						open={this.state.open}
 						info={this.state.selectedPokemon}
 					/>

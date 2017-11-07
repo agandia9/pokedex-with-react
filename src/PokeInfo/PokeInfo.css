@@ -1,0 +1,74 @@
+.list-moves{
+	overflow-y: scroll;
+    height: 20em;
+}
+
+.list-moves div{
+	height: 50px;
+}
+.list-moves div p{
+	text-align: center;
+	margin-top: 5%;
+}
+.modal-body{
+	height: 30em;
+	margin-bottom: 2.5em;
+	margin-left: 2.5em;
+	margin-right: 2.5em;
+	margin-top: 0.5em;
+}
+
+.fairy{
+	background-color: pink;
+}
+.grass{
+	background-color: green;
+}
+.poison{
+	background-color: violet;
+}
+.fire{
+	background-color: #e02626;
+}
+.normal{
+	background-color: white;
+}
+.flying{
+	background-color: lightgrey;
+}
+.steel{
+	background-color: grey;
+}
+.bug{
+	background-color: darkgreen;
+}
+.dragon{
+	background-color: darkviolet;
+}
+.dark{
+	background-color: #666666;
+}
+.water{
+	background-color: #38a9f4;
+}
+.ground{
+	background-color: #cc8c57;
+}
+.rock{
+	background-color: #7c4f1f;
+}
+.fighting{
+	background-color: #8e3a3a;
+}
+.psychic{
+	background-color: #d69cd0;
+}
+.ice{
+	background-color: #b5e6fc;
+}
+.electric{
+	background-color: yellow;
+}
+.ghost{
+	background-color: #3d3d3d;
+}
