@@ -1,3 +1,9 @@
 .form-control{
 	margin-bottom: 20px;
 }
+#moreInfoButton{
+    height: 50px;
+    margin-bottom: 2.5em;
+    font-size: 20px;
+    border-radius: 0;
+}

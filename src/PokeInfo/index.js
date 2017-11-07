@@ -20,9 +20,15 @@ class PokeInfo extends Component {
 								<Modal.Title id="contained-modal-title"><h3>{this.props.info ? this.props.info.name.substr(0,1).toUpperCase() + this.props.info.name.substr(1) : ''}</h3></Modal.Title>
 							  </Modal.Header>
 							  <Modal.Body>
-								<h4>Types: {this.props.info ? this.props.info.type.join(', ') : ''}</h4>
-								<h4>Abilities: {this.props.info ? this.props.info.abilities.join(', ') : ''}</h4>
-							
+							<div className="row">
+								<div className="col-sm-6">
+									<img src={`http://www.pokestadium.com/sprites/xy/${this.props.info.name}.gif`} alt="" />
+								</div>
+								<div className="col-sm-6">
+									<h4>Types: {this.props.info ? this.props.info.type.join(', ') : ''}</h4>
+									<h4>Abilities: {this.props.info ? this.props.info.abilities.join(', ') : ''}</h4>
+								</div>
+							</div>
 							<h4>Moveset</h4>
 							<div className="row list-moves">
 								  {

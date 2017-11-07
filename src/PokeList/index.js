@@ -124,7 +124,7 @@ class PokeList extends Component {
 							)
 						})
 					}
-					<button className="btn btn-block btn-success"onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
+					<button id="moreInfoButton"className="btn btn-block btn-success" onClick={this.getMorePokemons} data-url={this.state.next}>More Pokemons</button>
 					</div>
 					<PokeInfo
 						handleClose={this.handleClose}
