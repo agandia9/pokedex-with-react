@@ -7,7 +7,7 @@ const PokeCard = (props) => (
 	    <div className="headerThumbnail">
 			<h4>Nº {props.num +1}</h4>
 			<div>
-				<span className="fa fa-star"></span>
+				<span onClick={props.fav} className="fa fa-star"></span>
 			</div>
 		</div>
 			<img src={`http://www.pokestadium.com/sprites/xy/${props.pokemonId}.gif` }/>

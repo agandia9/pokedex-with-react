@@ -10,7 +10,8 @@ class PokeList extends Component {
 		filteredName: '',
 		loading: true,
 		selectedPokemon: '',
-		open:false
+		open:false,
+		fav:[]
 	}
 
 	componentWillMount() {
@@ -51,6 +52,9 @@ class PokeList extends Component {
 			    })
 			  }
 
+	addToFav =(e)=>{
+		console.log(e)
+	}
 
 	getInfo = (e) => {
 		const url = e.target.getAttribute('data')
@@ -109,6 +113,7 @@ class PokeList extends Component {
 						!this.state.loading && Object.keys(pokemons).filter(this.filterNames).map(num => {
 							return (
 								<PokeCard
+								fav={this.addToFav}
 									key = {num}
 									num = {parseInt(num)}
 									pokemonId={pokemons[num]['name'].replace('-','')}
