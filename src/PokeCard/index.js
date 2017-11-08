@@ -2,7 +2,7 @@ import React from 'react'
 import './PokeCard.css'
 
 const PokeCard = (props) => (
-	  <div className="col-xs-12  col-sm-6 col-md-3 col-lg-3">
+	  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 	    <div className="thumbnail img-fixed">
 	    <div className="headerThumbnail">
 			<h4>Nº {props.num +1}</h4>

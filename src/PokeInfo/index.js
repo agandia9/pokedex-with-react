@@ -2,12 +2,6 @@ import React, {Component} from 'react'
 import { Modal } from 'react-bootstrap'
 import './PokeInfo.css'
 class PokeInfo extends Component {
-	constructor(props) {
-    super(props);
-    
-}
-	
-
 	render(){
 		return(
 						<Modal
@@ -21,8 +15,9 @@ class PokeInfo extends Component {
 							  </Modal.Header>
 							  <Modal.Body>
 							<div className="row">
-								<div className="col-sm-6">
-									<img src={`http://www.pokestadium.com/sprites/xy/${this.props.info.name}.gif`} alt="" />
+								<div className="col-sm-6 row">
+									<img className="col-sm-6" src={`http://www.pokestadium.com/sprites/xy/${this.props.info.name}.gif`} alt="" />
+									<img className="col-sm-6" src={`http://www.pokestadium.com/sprites/xy/shiny/${this.props.info.name}.gif`} alt=""/>
 								</div>
 								<div className="col-sm-6">
 									<h4>Types: {this.props.info ? this.props.info.type.join(', ') : ''}</h4>

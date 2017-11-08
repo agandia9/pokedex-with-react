@@ -113,10 +113,10 @@ class PokeList extends Component {
 						!this.state.loading && Object.keys(pokemons).filter(this.filterNames).map(num => {
 							return (
 								<PokeCard
-								fav={this.addToFav}
+									fav={this.addToFav}
 									key = {num}
 									num = {parseInt(num)}
-									pokemonId={pokemons[num]['name'].replace('-','')}
+									pokemonId={pokemons[num]['name']}
 									getInfo = {this.getInfo}
 									moreInfo={pokemons[num]['url']}
 									name={`${pokemons[num]['name'].substr(0,1).toUpperCase()}${pokemons[num]['name'].substr(1).toLowerCase()}`}
